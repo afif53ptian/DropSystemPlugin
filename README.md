@@ -4,7 +4,7 @@ Drop System Plugin for Grimoire PRO 1.7.8
 ![PluginScreenshoot](https://i.postimg.cc/bvYmMXhK/image.png)
 - Download: [Drop System Plugin 1.7](https://drive.google.com/file/d/14A-gP_WgZyUQkr93oYWNRj2k1B7Nn0la/view?fbclid=IwAR1UA5bUQEQu13ZgOltmbA09mb-w2KXlI5XTWsOdGtBJRcuMnbZTcuhf8OA) | [Grimoire PRO 1.7.8](https://adventurequest.life)
 ## Features
-- Group the drop by name (so that you don't feel uncomfortable with the box drop on the screen)
+- Group the drop by name (so that you don't feel uncomfortable with the drop box on the screen)
 - Right click on the drop name (in the main / pool column) for **Keep, Reject, Open on Wiki, Search on Wiki, Restore**
   - **Keep**: keep items in your inventory
   - **Reject**: reject / move items to the "drop pool" (a kind of recycle bin)
