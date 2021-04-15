@@ -1,0 +1,11 @@
+C:\Users\Oni Ahmad\Desktop\refresh\Grim Plugin\Grimoire\DropPlugin\bin\Debug\ExamplePacketPlugin.dll
+C:\Users\Oni Ahmad\Desktop\refresh\Grim Plugin\Grimoire\DropPlugin\bin\Debug\ExamplePacketPlugin.pdb
+C:\Users\Oni Ahmad\Desktop\refresh\Grim Plugin\Grimoire\DropPlugin\obj\Debug\DropPlugin.csprojAssemblyReference.cache
+C:\Users\Oni Ahmad\Desktop\refresh\Grim Plugin\Grimoire\DropPlugin\obj\Debug\ExamplePacketPlugin.Main.resources
+C:\Users\Oni Ahmad\Desktop\refresh\Grim Plugin\Grimoire\DropPlugin\obj\Debug\DropPlugin.csproj.GenerateResource.cache
+C:\Users\Oni Ahmad\Desktop\refresh\Grim Plugin\Grimoire\DropPlugin\obj\Debug\DropPlugin.csproj.CoreCompileInputs.cache
+C:\Users\Oni Ahmad\Desktop\refresh\Grim Plugin\Grimoire\DropPlugin\obj\Debug\ExamplePacketPlugin.dll
+C:\Users\Oni Ahmad\Desktop\refresh\Grim Plugin\Grimoire\DropPlugin\obj\Debug\ExamplePacketPlugin.pdb
+C:\Users\Oni Ahmad\Desktop\refresh\Grim Plugin\Grimoire\DropPlugin\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Oni Ahmad\Desktop\refresh\Grim Plugin\Grimoire\DropPlugin\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Oni Ahmad\Desktop\refresh\Grim Plugin\Grimoire\DropPlugin\obj\Debug\DropPlugin.csproj.CopyComplete
