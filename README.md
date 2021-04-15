@@ -1,2 +1,2 @@
 # DropSystemPlugin
-Drop System Plugin for Grimo 1.7.8
+Drop System Plugin for Grimoire 1.7.8
