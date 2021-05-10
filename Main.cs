@@ -86,9 +86,9 @@ namespace ExamplePacketPlugin
                     if (Grimoire.Botting.OptionsManager.IsRunning && isBotNotActive)
                     {
                         MessageBoxEx.Show(this, "Bot activation makes this plugin release all drops,\r\n" +
-                            "but you can decline it, and all your drops still on the list!", "Oops");
+                            "but you can decline it, and all your drops still on the list!\r\n", "Oops");
                         tbDrop.Text += "*Attention: you can use this plugin with Bot " +
-                            "but we don't recommend you to do so.";
+                            "but we don't recommend you to do so.\r\n";
 
                         cbAutoAtt.Checked = false;
 
@@ -142,12 +142,21 @@ namespace ExamplePacketPlugin
                     }
                     if (isInvNeedToParse && (invItemsMsg != null))
                     {
-                        listFromChar(invItemsMsg);
+                        try { listFromChar(invItemsMsg); }
+                        catch (Exception ex) {
+                            // errorMsg(ex);
+                            tbDrop.Text += "[Failed load items from Inv, try reloging]\r\n";
+                        }
                         isInvNeedToParse = false;
                     }
                     if (isBankNeedToParse && (bankItemsMsg != null))
                     {
-                        listFromChar(bankItemsMsg);
+                        try { listFromChar(bankItemsMsg); }
+                        catch (Exception ex) { 
+                            // errorMsg(ex);
+                            tbDrop.Text += "[Failed load items from Bank]\r\n";
+                            tbDrop.Text += "[is your bank section empty?, if yes: it's normal, if no: try relogin]\r\n";
+                        }
                         isBankNeedToParse = false;
                     }
                     if (LMsg.Any())
@@ -332,7 +341,7 @@ namespace ExamplePacketPlugin
                     strES, sFile, sLink));
             }
 
-            tbDrop.Text += "\r\n[Bank/Inv is Listed]" + "\r\n\r\n";
+            tbDrop.Text += "[Bank/Inv is Listed]" + "\r\n";
         }
 
         public void listDropItem(List<string> msgs)
@@ -1042,7 +1051,7 @@ namespace ExamplePacketPlugin
         {
             tbDrop.Text = string.Empty;
             string erMsg = ex + " < Bugs!!, Tell me about these logs! (Click on: ReportBug?) " +
-                "-- and -- Click Refresh for a Quick Fix!";
+                "-- and -- Click Refresh for a Quick Fix!\r\n";
             tbDrop.Text += erMsg;
         }
 

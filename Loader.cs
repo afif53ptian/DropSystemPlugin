@@ -17,7 +17,7 @@ namespace ExamplePacketPlugin
         public void Load()
         {
             // Add an item to the main menu in Grimoire.
-            menuItem = Grimoire.UI.Root.Instance.MenuMain.Items.Add("Drop");
+            menuItem = Grimoire.UI.Root.Instance.MenuMain.Items.Add("Drops");
             menuItem.Click += MenuStripItem_Click;
         }
 
