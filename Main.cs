@@ -563,6 +563,20 @@ namespace ExamplePacketPlugin
             grabTreeDrops();
         }
 
+        // Reset SWF
+        private void btnResetSWF_Click(object sender, EventArgs e)
+        {
+            if (EquipmentMsg.Any())
+            {
+                btnResetSWF.Enabled = false;
+                foreach (string msg in EquipmentMsg)
+                {
+                    Proxy.Instance.SendToClient(msg);
+                }
+                btnResetSWF.Enabled = true;
+            }
+        }
+
         // making treenode base on drops.IQty >= 1
         public void grabTreeDrops()
         {
@@ -904,12 +918,16 @@ namespace ExamplePacketPlugin
                 tvDropPool.Visible = false;
                 lbStringLogs.Visible = false;
                 lbDropPool.Visible = false;
-                cbAutoAtt.Visible = false;
-                tbSkill.Visible = false;
+                //cbAutoAtt.Visible = false;
+                //tbSkill.Visible = false;
+                //linklbReportBug.Visible = false;
+                //cbDisableAnim.Visible = false;
+                //cbHidePlayer.Visible = false;
+                //cbLagKiller.Visible = false;
                 linklbReportBug.Visible = false;
-                cbDisableAnim.Visible = false;
-                cbHidePlayer.Visible = false;
-                cbLagKiller.Visible = false;
+                cbWalkSpeed.Visible = false;
+                numWalkSpeed.Visible = false;
+                cbSkipCutscene.Visible = false;
             }
             else
             {
@@ -921,12 +939,16 @@ namespace ExamplePacketPlugin
                 tvDropPool.Visible = true;
                 lbStringLogs.Visible = true;
                 lbDropPool.Visible = true;
-                cbAutoAtt.Visible = true;
-                tbSkill.Visible = true;
+                //cbAutoAtt.Visible = true;
+                //tbSkill.Visible = true;
+                //linklbReportBug.Visible = true;
+                //cbDisableAnim.Visible = true;
+                //cbHidePlayer.Visible = true;
+                //cbLagKiller.Visible = true;
                 linklbReportBug.Visible = true;
-                cbDisableAnim.Visible = true;
-                cbHidePlayer.Visible = true;
-                cbLagKiller.Visible = true;
+                cbWalkSpeed.Visible = true;
+                numWalkSpeed.Visible = true;
+                cbSkipCutscene.Visible = true;
             }
         }
 
@@ -1069,6 +1091,8 @@ namespace ExamplePacketPlugin
 
         public HandlerDisableAnims AnimsHandler { get; } = new HandlerDisableAnims();
 
+        public HandlerSkills HandlerRange { get; } = new HandlerSkills();
+
         private void cbHidePlayer_CheckedChanged(object sender, EventArgs e)
         {
             if (cbHidePlayer.Checked)
@@ -1106,16 +1130,56 @@ namespace ExamplePacketPlugin
             }
         }
 
-        private void btnResetSWF_Click(object sender, EventArgs e)
+        private void cbInfiniteRange_CheckedChanged(object sender, EventArgs e)
         {
-            if (EquipmentMsg.Any())
+            if(cbInfiniteRange.Checked)
             {
-                btnResetSWF.Enabled = false;
-                foreach(string msg in EquipmentMsg)
-                {
-                    Proxy.Instance.SendToClient(msg);
-                }
-                btnResetSWF.Enabled = true;
+                Proxy.Instance.RegisterHandler(HandlerRange);
+                Grimoire.Tools.Flash.Call("SetInfiniteRange");
+            }
+            else
+            {
+                Proxy.Instance.UnregisterHandler(HandlerRange);
+            }
+        }
+
+        private async void cbProvokeMons_CheckedChanged(object sender, EventArgs e)
+        {
+            while (cbProvokeMons.Checked)
+            {
+                Grimoire.Tools.Flash.Call("SetProvokeMonsters");
+                await Task.Delay(1000);
+            }
+        }
+
+        private async void cbWalkSpeed_CheckedChangedAsync(object sender, EventArgs e)
+        {
+            while (cbWalkSpeed.Checked)
+            {
+                Grimoire.Tools.Flash.Call("SetWalkSpeed", numWalkSpeed.Value.ToString());
+                await Task.Delay(1000);
+            }
+
+            if(!cbWalkSpeed.Checked)
+            {
+                Grimoire.Tools.Flash.Call("SetWalkSpeed", "8");
+            }
+        }
+
+        private void numWalkSpeed_ValueChanged(object sender, EventArgs e)
+        {
+            if(cbWalkSpeed.Checked)
+            {
+                Grimoire.Tools.Flash.Call("SetWalkSpeed", numWalkSpeed.Value.ToString());
+            }
+        }
+
+        private async void cbSkipCutscene_CheckedChanged(object sender, EventArgs e)
+        {
+            while(cbSkipCutscene.Checked)
+            {
+                Grimoire.Tools.Flash.Call("SetSkipCutscenes");
+                await Task.Delay(1000);
             }
         }
     }

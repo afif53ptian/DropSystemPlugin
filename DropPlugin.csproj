@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="HandlerDisableAnims.cs" />
     <Compile Include="HandlerHidePlayer.cs" />
+    <Compile Include="HandlerSkills.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Main.cs">
