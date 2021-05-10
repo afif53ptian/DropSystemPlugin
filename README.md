@@ -9,7 +9,7 @@ Drop System Plugin for Grimoire PRO 1.7.8
 
 <img src="https://s3.gifyu.com/images/ezgif.com-gif-maker22f5ffbc6625dc72.gif" alt="Plugin Version 1.7" width="600"/>
 
-Download: [Drop System Plugin 2.1](https://drive.google.com/file/d/1qoKlC1fFMgj6BlqAdQYZQGGaVuEkKHmR/view?usp=sharing) | [Drop System Plugin 1.7](https://drive.google.com/file/d/14A-gP_WgZyUQkr93oYWNRj2k1B7Nn0la/view?fbclid=IwAR1UA5bUQEQu13ZgOltmbA09mb-w2KXlI5XTWsOdGtBJRcuMnbZTcuhf8OA) | [Grimoire PRO 1.7.8](https://adventurequest.life)
+Download: [Drop System Plugin 2.1](https://drive.google.com/file/d/1MAde7cIKbjb9yaw2cHvQISNNNO2BXdHG/view?usp=sharing) | [Drop System Plugin 1.7](https://drive.google.com/file/d/14A-gP_WgZyUQkr93oYWNRj2k1B7Nn0la/view?fbclid=IwAR1UA5bUQEQu13ZgOltmbA09mb-w2KXlI5XTWsOdGtBJRcuMnbZTcuhf8OA) | [Grimoire PRO 1.7.8](https://adventurequest.life)
 ## Features
 - Group your drops by its name (so that you no longer feel uncomfortable with all the drop boxes on the screen)
 - Right click on the drop name (in the main / pool section) for **Keep, Reject, Open on Wiki, Search on Wiki, Restore**
