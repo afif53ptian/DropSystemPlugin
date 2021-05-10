@@ -1,4 +1,4 @@
-# DropSystemPlugin 2.0
+# DropSystemPlugin 2.1
 Drop System Plugin for Grimoire PRO 1.7.8
 ## Preview
 **Version 2.0**
@@ -9,7 +9,7 @@ Drop System Plugin for Grimoire PRO 1.7.8
 
 <img src="https://s3.gifyu.com/images/ezgif.com-gif-maker22f5ffbc6625dc72.gif" alt="Plugin Version 1.7" width="600"/>
 
-Download: [Drop System Plugin 2.0](https://drive.google.com/file/d/1bAUe48JLxTwye6AOeisMv44nYeNtXpQ3/view?usp=sharing) | [Drop System Plugin 1.7](https://drive.google.com/file/d/14A-gP_WgZyUQkr93oYWNRj2k1B7Nn0la/view?fbclid=IwAR1UA5bUQEQu13ZgOltmbA09mb-w2KXlI5XTWsOdGtBJRcuMnbZTcuhf8OA) | [Grimoire PRO 1.7.8](https://adventurequest.life)
+Download: [Drop System Plugin 2.1](https://drive.google.com/file/d/1qoKlC1fFMgj6BlqAdQYZQGGaVuEkKHmR/view?usp=sharing) | [Drop System Plugin 1.7](https://drive.google.com/file/d/14A-gP_WgZyUQkr93oYWNRj2k1B7Nn0la/view?fbclid=IwAR1UA5bUQEQu13ZgOltmbA09mb-w2KXlI5XTWsOdGtBJRcuMnbZTcuhf8OA) | [Grimoire PRO 1.7.8](https://adventurequest.life)
 ## Features
 - Group your drops by its name (so that you no longer feel uncomfortable with all the drop boxes on the screen)
 - Right click on the drop name (in the main / pool section) for **Keep, Reject, Open on Wiki, Search on Wiki, Restore**
@@ -32,7 +32,7 @@ Download: [Drop System Plugin 2.0](https://drive.google.com/file/d/1bAUe48JLxTwy
 - **Walk Speed***: change your walk speed, when it's unchecked your walk speed become normal again
 - **Skip Cutscene***: skip any cutscene
 
-(*) : version 2.0 only
+(*) : version 2.1 only
 ## How To Use
 1. Load Plugin from Grimorie 1.7.8
 2. Enable plugin when your char is logged out (If ingame: plugin can't be enabled)
@@ -41,5 +41,5 @@ Download: [Drop System Plugin 2.0](https://drive.google.com/file/d/1bAUe48JLxTwy
 5. If list suddenly goes blank, try clicking refresh and it will back
 6. To disable plugin: you must in logout condition then disable the plugin
 ## Note
-- I don't recommended to use it with a bot manager (you can but maybe still buggy in some case)
+- I don't recommended to use it with a bot manager (you can but maybe still buggy in some cases)
 - [Contact me](https://www.facebook.com/afif.septian.35/) for any error information / bug / suggested features / new plugin ideas
