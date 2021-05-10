@@ -27,6 +27,7 @@ namespace ExamplePacketPlugin
             Main.Instance.cbEnable.Checked = false;
             Proxy.Instance.UnregisterHandler(Main.Instance.HideHandler);
             Proxy.Instance.UnregisterHandler(Main.Instance.AnimsHandler);
+            Proxy.Instance.UnregisterHandler(Main.Instance.HandlerRange);
             Proxy.Instance.ReceivedFromServer -= Main.Instance.MapHandler;
             Proxy.Instance.ReceivedFromClient -= Main.Instance.MapHandler;
             menuItem.Click -= MenuStripItem_Click;

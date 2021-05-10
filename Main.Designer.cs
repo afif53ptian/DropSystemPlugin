@@ -67,9 +67,17 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.btnResetSWF = new System.Windows.Forms.Button();
+            this.gbOption = new System.Windows.Forms.GroupBox();
+            this.cbInfiniteRange = new System.Windows.Forms.CheckBox();
+            this.cbProvokeMons = new System.Windows.Forms.CheckBox();
+            this.cbWalkSpeed = new System.Windows.Forms.CheckBox();
+            this.numWalkSpeed = new System.Windows.Forms.NumericUpDown();
+            this.cbSkipCutscene = new System.Windows.Forms.CheckBox();
             this.contextMenuStripMain.SuspendLayout();
             this.contextMenuStripPool.SuspendLayout();
             this.contextMenuStripMainEquip.SuspendLayout();
+            this.gbOption.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numWalkSpeed)).BeginInit();
             this.SuspendLayout();
             // 
             // contextMenuStripMain
@@ -115,7 +123,7 @@
             // 
             this.cbEnable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbEnable.AutoSize = true;
-            this.cbEnable.Location = new System.Drawing.Point(12, 316);
+            this.cbEnable.Location = new System.Drawing.Point(19, 352);
             this.cbEnable.Name = "cbEnable";
             this.cbEnable.Size = new System.Drawing.Size(59, 17);
             this.cbEnable.TabIndex = 0;
@@ -128,11 +136,11 @@
             this.tbDrop.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbDrop.Location = new System.Drawing.Point(258, 225);
+            this.tbDrop.Location = new System.Drawing.Point(258, 270);
             this.tbDrop.Multiline = true;
             this.tbDrop.Name = "tbDrop";
             this.tbDrop.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbDrop.Size = new System.Drawing.Size(223, 64);
+            this.tbDrop.Size = new System.Drawing.Size(223, 76);
             this.tbDrop.TabIndex = 3;
             this.tbDrop.TextChanged += new System.EventHandler(this.tbDrop_TextChanged);
             // 
@@ -175,7 +183,7 @@
             treeNode4,
             treeNode5});
             this.tvDropMain.SelectedImageIndex = 0;
-            this.tvDropMain.Size = new System.Drawing.Size(235, 273);
+            this.tvDropMain.Size = new System.Drawing.Size(235, 208);
             this.tvDropMain.TabIndex = 4;
             this.tvDropMain.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tv_NodeMouseClick);
             // 
@@ -200,7 +208,7 @@
             // lbStringLogs
             // 
             this.lbStringLogs.AutoSize = true;
-            this.lbStringLogs.Location = new System.Drawing.Point(255, 209);
+            this.lbStringLogs.Location = new System.Drawing.Point(256, 251);
             this.lbStringLogs.Name = "lbStringLogs";
             this.lbStringLogs.Size = new System.Drawing.Size(68, 13);
             this.lbStringLogs.TabIndex = 6;
@@ -215,7 +223,7 @@
             this.tvDropPool.Location = new System.Drawing.Point(258, 37);
             this.tvDropPool.Name = "tvDropPool";
             this.tvDropPool.SelectedImageIndex = 0;
-            this.tvDropPool.Size = new System.Drawing.Size(224, 169);
+            this.tvDropPool.Size = new System.Drawing.Size(224, 208);
             this.tvDropPool.TabIndex = 7;
             this.tvDropPool.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tv_NodeMouseClick);
             // 
@@ -265,7 +273,7 @@
             // 
             this.cbHideUI.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbHideUI.AutoSize = true;
-            this.cbHideUI.Location = new System.Drawing.Point(77, 316);
+            this.cbHideUI.Location = new System.Drawing.Point(79, 352);
             this.cbHideUI.Name = "cbHideUI";
             this.cbHideUI.Size = new System.Drawing.Size(100, 17);
             this.cbHideUI.TabIndex = 10;
@@ -277,7 +285,7 @@
             // 
             this.lbInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbInfo.AutoSize = true;
-            this.lbInfo.Location = new System.Drawing.Point(178, 317);
+            this.lbInfo.Location = new System.Drawing.Point(177, 353);
             this.lbInfo.Name = "lbInfo";
             this.lbInfo.Size = new System.Drawing.Size(49, 13);
             this.lbInfo.TabIndex = 11;
@@ -288,7 +296,7 @@
             // 
             this.linklbReportBug.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linklbReportBug.AutoSize = true;
-            this.linklbReportBug.Location = new System.Drawing.Point(417, 209);
+            this.linklbReportBug.Location = new System.Drawing.Point(417, 251);
             this.linklbReportBug.Name = "linklbReportBug";
             this.linklbReportBug.Size = new System.Drawing.Size(64, 13);
             this.linklbReportBug.TabIndex = 12;
@@ -300,7 +308,7 @@
             // 
             this.cbAutoAtt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbAutoAtt.AutoSize = true;
-            this.cbAutoAtt.Location = new System.Drawing.Point(258, 295);
+            this.cbAutoAtt.Location = new System.Drawing.Point(6, 21);
             this.cbAutoAtt.Name = "cbAutoAtt";
             this.cbAutoAtt.Size = new System.Drawing.Size(82, 17);
             this.cbAutoAtt.TabIndex = 13;
@@ -311,7 +319,7 @@
             // tbSkill
             // 
             this.tbSkill.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.tbSkill.Location = new System.Drawing.Point(335, 293);
+            this.tbSkill.Location = new System.Drawing.Point(88, 19);
             this.tbSkill.Name = "tbSkill";
             this.tbSkill.Size = new System.Drawing.Size(45, 20);
             this.tbSkill.TabIndex = 14;
@@ -321,7 +329,7 @@
             // 
             this.cbHidePlayer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbHidePlayer.AutoSize = true;
-            this.cbHidePlayer.Location = new System.Drawing.Point(386, 295);
+            this.cbHidePlayer.Location = new System.Drawing.Point(151, 21);
             this.cbHidePlayer.Name = "cbHidePlayer";
             this.cbHidePlayer.Size = new System.Drawing.Size(77, 17);
             this.cbHidePlayer.TabIndex = 15;
@@ -333,7 +341,7 @@
             // 
             this.cbDisableAnim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbDisableAnim.AutoSize = true;
-            this.cbDisableAnim.Location = new System.Drawing.Point(258, 316);
+            this.cbDisableAnim.Location = new System.Drawing.Point(6, 44);
             this.cbDisableAnim.Name = "cbDisableAnim";
             this.cbDisableAnim.Size = new System.Drawing.Size(107, 17);
             this.cbDisableAnim.TabIndex = 16;
@@ -345,7 +353,7 @@
             // 
             this.cbLagKiller.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbLagKiller.AutoSize = true;
-            this.cbLagKiller.Location = new System.Drawing.Point(386, 316);
+            this.cbLagKiller.Location = new System.Drawing.Point(151, 44);
             this.cbLagKiller.Name = "cbLagKiller";
             this.cbLagKiller.Size = new System.Drawing.Size(66, 17);
             this.cbLagKiller.TabIndex = 17;
@@ -410,17 +418,103 @@
             this.btnResetSWF.UseVisualStyleBackColor = true;
             this.btnResetSWF.Click += new System.EventHandler(this.btnResetSWF_Click);
             // 
+            // gbOption
+            // 
+            this.gbOption.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.gbOption.Controls.Add(this.cbInfiniteRange);
+            this.gbOption.Controls.Add(this.cbProvokeMons);
+            this.gbOption.Controls.Add(this.cbAutoAtt);
+            this.gbOption.Controls.Add(this.tbSkill);
+            this.gbOption.Controls.Add(this.cbHidePlayer);
+            this.gbOption.Controls.Add(this.cbDisableAnim);
+            this.gbOption.Controls.Add(this.cbLagKiller);
+            this.gbOption.Location = new System.Drawing.Point(13, 251);
+            this.gbOption.Name = "gbOption";
+            this.gbOption.Size = new System.Drawing.Size(234, 95);
+            this.gbOption.TabIndex = 19;
+            this.gbOption.TabStop = false;
+            this.gbOption.Text = "Options:";
+            // 
+            // cbInfiniteRange
+            // 
+            this.cbInfiniteRange.AutoSize = true;
+            this.cbInfiniteRange.Location = new System.Drawing.Point(6, 67);
+            this.cbInfiniteRange.Name = "cbInfiniteRange";
+            this.cbInfiniteRange.Size = new System.Drawing.Size(120, 17);
+            this.cbInfiniteRange.TabIndex = 19;
+            this.cbInfiniteRange.Text = "InfiniteAttackRange";
+            this.cbInfiniteRange.UseVisualStyleBackColor = true;
+            this.cbInfiniteRange.CheckedChanged += new System.EventHandler(this.cbInfiniteRange_CheckedChanged);
+            // 
+            // cbProvokeMons
+            // 
+            this.cbProvokeMons.AutoSize = true;
+            this.cbProvokeMons.Location = new System.Drawing.Point(151, 67);
+            this.cbProvokeMons.Name = "cbProvokeMons";
+            this.cbProvokeMons.Size = new System.Drawing.Size(66, 17);
+            this.cbProvokeMons.TabIndex = 18;
+            this.cbProvokeMons.Text = "Provoke";
+            this.cbProvokeMons.UseVisualStyleBackColor = true;
+            this.cbProvokeMons.CheckedChanged += new System.EventHandler(this.cbProvokeMons_CheckedChanged);
+            // 
+            // cbWalkSpeed
+            // 
+            this.cbWalkSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cbWalkSpeed.AutoSize = true;
+            this.cbWalkSpeed.Location = new System.Drawing.Point(258, 352);
+            this.cbWalkSpeed.Name = "cbWalkSpeed";
+            this.cbWalkSpeed.Size = new System.Drawing.Size(85, 17);
+            this.cbWalkSpeed.TabIndex = 20;
+            this.cbWalkSpeed.Text = "WalkSpeed:";
+            this.cbWalkSpeed.UseVisualStyleBackColor = true;
+            this.cbWalkSpeed.CheckedChanged += new System.EventHandler(this.cbWalkSpeed_CheckedChangedAsync);
+            // 
+            // numWalkSpeed
+            // 
+            this.numWalkSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.numWalkSpeed.Increment = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.numWalkSpeed.Location = new System.Drawing.Point(340, 351);
+            this.numWalkSpeed.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+            this.numWalkSpeed.Name = "numWalkSpeed";
+            this.numWalkSpeed.Size = new System.Drawing.Size(39, 20);
+            this.numWalkSpeed.TabIndex = 21;
+            this.numWalkSpeed.Value = new decimal(new int[] {
+            21,
+            0,
+            0,
+            0});
+            this.numWalkSpeed.ValueChanged += new System.EventHandler(this.numWalkSpeed_ValueChanged);
+            // 
+            // cbSkipCutscene
+            // 
+            this.cbSkipCutscene.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cbSkipCutscene.AutoSize = true;
+            this.cbSkipCutscene.Location = new System.Drawing.Point(385, 352);
+            this.cbSkipCutscene.Name = "cbSkipCutscene";
+            this.cbSkipCutscene.Size = new System.Drawing.Size(92, 17);
+            this.cbSkipCutscene.TabIndex = 22;
+            this.cbSkipCutscene.Text = "SkipCutscene";
+            this.cbSkipCutscene.UseVisualStyleBackColor = true;
+            this.cbSkipCutscene.CheckedChanged += new System.EventHandler(this.cbSkipCutscene_CheckedChanged);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(494, 340);
+            this.ClientSize = new System.Drawing.Size(494, 376);
+            this.Controls.Add(this.cbSkipCutscene);
+            this.Controls.Add(this.numWalkSpeed);
+            this.Controls.Add(this.cbWalkSpeed);
+            this.Controls.Add(this.gbOption);
             this.Controls.Add(this.btnResetSWF);
-            this.Controls.Add(this.cbLagKiller);
-            this.Controls.Add(this.cbDisableAnim);
-            this.Controls.Add(this.cbHidePlayer);
-            this.Controls.Add(this.tbSkill);
-            this.Controls.Add(this.cbAutoAtt);
             this.Controls.Add(this.linklbReportBug);
             this.Controls.Add(this.lbInfo);
             this.Controls.Add(this.cbHideUI);
@@ -435,13 +529,16 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(510, 39);
             this.Name = "Main";
-            this.Text = "Drop System 1.7";
+            this.Text = "Drop System 2.0";
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
             this.contextMenuStripMain.ResumeLayout(false);
             this.contextMenuStripPool.ResumeLayout(false);
             this.contextMenuStripMainEquip.ResumeLayout(false);
+            this.gbOption.ResumeLayout(false);
+            this.gbOption.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numWalkSpeed)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -481,5 +578,11 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.Button btnResetSWF;
+        private System.Windows.Forms.GroupBox gbOption;
+        private System.Windows.Forms.CheckBox cbInfiniteRange;
+        private System.Windows.Forms.CheckBox cbProvokeMons;
+        private System.Windows.Forms.CheckBox cbWalkSpeed;
+        private System.Windows.Forms.NumericUpDown numWalkSpeed;
+        private System.Windows.Forms.CheckBox cbSkipCutscene;
     }
 }
