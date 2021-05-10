@@ -3,11 +3,11 @@ Drop System Plugin for Grimoire PRO 1.7.8
 ## Preview
 **Version 2.0**
 
-    ![Plugin Version 2.0](https://s3.gifyu.com/images/ice_video_20210511-041307_edit_0.gif)
+![Plugin Version 2.0](https://s3.gifyu.com/images/ice_video_20210511-041307_edit_0.gif)
 
 **Version 1.7**
 
-    ![Plugin Version 1.7](https://s3.gifyu.com/images/ezgif.com-gif-maker22f5ffbc6625dc72.gif)
+![Plugin Version 1.7](https://s3.gifyu.com/images/ezgif.com-gif-maker22f5ffbc6625dc72.gif)
 
 Download: [Drop System Plugin 2.0](https://drive.google.com/file/d/1bAUe48JLxTwye6AOeisMv44nYeNtXpQ3/view?usp=sharing) | [Drop System Plugin 1.7](https://drive.google.com/file/d/14A-gP_WgZyUQkr93oYWNRj2k1B7Nn0la/view?fbclid=IwAR1UA5bUQEQu13ZgOltmbA09mb-w2KXlI5XTWsOdGtBJRcuMnbZTcuhf8OA) | [Grimoire PRO 1.7.8](https://adventurequest.life)
 ## Features
