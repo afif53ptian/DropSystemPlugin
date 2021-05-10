@@ -1,4 +1,4 @@
-# DropSystemPlugin 1.7
+# DropSystemPlugin 2.0
 Drop System Plugin for Grimoire PRO 1.7.8
 ## Preview
 **Version 2.0**
