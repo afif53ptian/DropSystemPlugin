@@ -29,7 +29,7 @@ Download: [Drop System Plugin 2.0](https://drive.google.com/file/d/1bAUe48JLxTwy
 - **Lag Killer**: make your client blank (preventing you from lag)
 - **Infinite Attack Range***: infinite attack range
 - **Provoke (Monster)***: making all monster attacking on you, so you dont miss any drops
-- **Walk Speed***: change your walk speed, when its unchecked your walk speed become normal again
+- **Walk Speed***: change your walk speed, when it's unchecked your walk speed become normal again
 - **Skip Cutscene***: skip any cutscene
 
 (*) : version 2.0 only
