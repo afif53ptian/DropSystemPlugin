@@ -14,7 +14,7 @@ Drop System Plugin for Grimlite / Grimoire PRO 1.7.8
 
 <img src="https://s3.gifyu.com/images/ezgif.com-gif-maker22f5ffbc6625dc72.gif" alt="Plugin Version 1.7" width="400"/>
 
-## Download: 
+## Download 
 Plugin:
 [Drop System Plugin 3.0](https://drive.google.com/file/d/1tuopouW_D0g0HSPratGY_PunWBPu_Ny1/view) | [Drop System Plugin 2.1](https://drive.google.com/file/d/1MAde7cIKbjb9yaw2cHvQISNNNO2BXdHG/view?usp=sharing) | [Drop System Plugin 1.7](https://drive.google.com/file/d/14A-gP_WgZyUQkr93oYWNRj2k1B7Nn0la/view?fbclid=IwAR1UA5bUQEQu13ZgOltmbA09mb-w2KXlI5XTWsOdGtBJRcuMnbZTcuhf8OA) 
 
