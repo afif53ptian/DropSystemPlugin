@@ -73,6 +73,8 @@
             this.cbWalkSpeed = new System.Windows.Forms.CheckBox();
             this.numWalkSpeed = new System.Windows.Forms.NumericUpDown();
             this.cbSkipCutscene = new System.Windows.Forms.CheckBox();
+            this.lbTest = new System.Windows.Forms.Label();
+            this.linklbHotkeys = new System.Windows.Forms.LinkLabel();
             this.contextMenuStripMain.SuspendLayout();
             this.contextMenuStripPool.SuspendLayout();
             this.contextMenuStripMainEquip.SuspendLayout();
@@ -142,6 +144,8 @@
             this.tbDrop.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbDrop.Size = new System.Drawing.Size(223, 76);
             this.tbDrop.TabIndex = 3;
+            this.tbDrop.Text = "Enable plugin before log in (the plugin can\'t be activated once you\'re logged in)" +
+    "";
             this.tbDrop.TextChanged += new System.EventHandler(this.tbDrop_TextChanged);
             // 
             // tvDropMain
@@ -234,9 +238,9 @@
             this.lbDropPool.AutoSize = true;
             this.lbDropPool.Location = new System.Drawing.Point(256, 21);
             this.lbDropPool.Name = "lbDropPool";
-            this.lbDropPool.Size = new System.Drawing.Size(167, 13);
+            this.lbDropPool.Size = new System.Drawing.Size(156, 13);
             this.lbDropPool.TabIndex = 8;
-            this.lbDropPool.Text = "Drop Pool: (all rejected goes here)";
+            this.lbDropPool.Text = "Drop Pool: (all rejected go here)";
             // 
             // contextMenuStripPool
             // 
@@ -505,11 +509,34 @@
             this.cbSkipCutscene.UseVisualStyleBackColor = true;
             this.cbSkipCutscene.CheckedChanged += new System.EventHandler(this.cbSkipCutscene_CheckedChanged);
             // 
+            // lbTest
+            // 
+            this.lbTest.AutoSize = true;
+            this.lbTest.Location = new System.Drawing.Point(323, 251);
+            this.lbTest.Name = "lbTest";
+            this.lbTest.Size = new System.Drawing.Size(74, 13);
+            this.lbTest.TabIndex = 23;
+            this.lbTest.Text = "{currentNode}";
+            // 
+            // linklbHotkeys
+            // 
+            this.linklbHotkeys.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linklbHotkeys.AutoSize = true;
+            this.linklbHotkeys.Location = new System.Drawing.Point(429, 21);
+            this.linklbHotkeys.Name = "linklbHotkeys";
+            this.linklbHotkeys.Size = new System.Drawing.Size(52, 13);
+            this.linklbHotkeys.TabIndex = 24;
+            this.linklbHotkeys.TabStop = true;
+            this.linklbHotkeys.Text = "Hotkeys?";
+            this.linklbHotkeys.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklbHotkeys_LinkClicked);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(494, 376);
+            this.Controls.Add(this.linklbHotkeys);
+            this.Controls.Add(this.lbTest);
             this.Controls.Add(this.cbSkipCutscene);
             this.Controls.Add(this.numWalkSpeed);
             this.Controls.Add(this.cbWalkSpeed);
@@ -529,7 +556,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(510, 39);
             this.Name = "Main";
-            this.Text = "Drop System 2.1";
+            this.Text = "Drop System 3.0";
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.Load += new System.EventHandler(this.Main_Load);
@@ -584,5 +611,7 @@
         private System.Windows.Forms.CheckBox cbWalkSpeed;
         private System.Windows.Forms.NumericUpDown numWalkSpeed;
         private System.Windows.Forms.CheckBox cbSkipCutscene;
+        private System.Windows.Forms.Label lbTest;
+        private System.Windows.Forms.LinkLabel linklbHotkeys;
     }
 }

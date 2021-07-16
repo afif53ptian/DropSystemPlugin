@@ -15,28 +15,20 @@ namespace ExamplePacketPlugin
     public partial class Main : Form
     {
         public static Main Instance { get; } = new Main();
+        HotkeysHelp hotkeysHelpForm = new HotkeysHelp();
 
         public Main()
         {
             InitializeComponent();
-        }
+            tvDropMain.AfterSelect += tv_AfterSelect;
+            tvDropPool.AfterSelect += tv_AfterSelect;
 
-        /*
-        public JoinHandler Handler { get; } = new JoinHandler();
+            tvDropMain.GotFocus += tv_GotFocus;
+            tvDropPool.GotFocus += tv_GotFocus;
 
-        private void chkenable_checkedchanged(object sender, eventargs e)
-        {
-            if (chkenable.checked)
-            {
-                handler.maptojoin = txtmap.text;
-                proxy.instance.registerhandler(handler);
-            }
-            else
-            {
-                proxy.instance.unregisterhandler(handler);
-            }
+            KeyPreview = true;
+            this.KeyDown += new KeyEventHandler(this.hotkey);
         }
-        */
 
         List<Item> drops = new List<Item>();
         bool isInvenLoaded = false;
@@ -49,6 +41,17 @@ namespace ExamplePacketPlugin
         bool inBank = false;
 
         TreeNode tempSelectedNode;
+        TreeNode lastPoolSelectedNode;
+        TreeNode lastMainSelectedNode;
+
+        // save the lastest treeview focus
+        enum tvMode
+        {
+            None,
+            Main,
+            Pool
+        }
+        tvMode lastTvFocus = tvMode.None;
 
         string bankItemsMsg;
         string invItemsMsg;
@@ -63,6 +66,7 @@ namespace ExamplePacketPlugin
         List<string> EquipmentMsg = new List<string>();
 
         bool isBotNotActive = true;
+        bool isGetDropLoading = false;
 
         private async void cbEnable_CheckedChanged(object sender, EventArgs e)
         {
@@ -108,6 +112,7 @@ namespace ExamplePacketPlugin
                     }
                     if (!Player.IsLoggedIn)
                     {
+                        isGetDropLoading = false;
                         cbEnable.Enabled = true;
                         cbHidePlayer.Checked = false;
 
@@ -136,9 +141,18 @@ namespace ExamplePacketPlugin
                         await Task.Delay(100);
 
                         grabTreeDrops();
-                        tvDropPool.Enabled = true;
-                        tvDropMain.Enabled = true;
-                        needToGrab = false;
+
+                        if(!isGetDropLoading)
+                        {
+                            tvDropPool.Enabled = true;
+                            tvDropMain.Enabled = true;
+                            needToGrab = false;
+                        }
+
+                        /* Keep track of the selected node
+                         * when treeview gets refreshed/changed.
+                         */
+                        setSelectedNode();
                     }
                     if (isInvNeedToParse && (invItemsMsg != null))
                     {
@@ -192,8 +206,8 @@ namespace ExamplePacketPlugin
                     try
                     {
                         lbInfo.Text = $"(Inv: {(isInvenLoaded ? Player.Inventory.Items.Count : 0)}/{bagSlots})";
-                        lbDropItems.Text = $"Main Drop: {tnCount(0)} item(s)";
-                        lbDropPool.Text = $"Drop Pool: {tnCount(1)} item(s)";
+                        lbDropItems.Text = $"Main Drop: {tnCount(tvMode.Main)} item(s)";
+                        lbDropPool.Text = $"Drop Pool: {tnCount(tvMode.Pool)} item(s)";
                     }
                     catch
                     {
@@ -236,11 +250,6 @@ namespace ExamplePacketPlugin
                         this.LMsg.Add(msg);
                     }
 
-                    /*if (msg.Contains("bTemp\":"))
-                    {
-                        Proxy.Instance.SendToClient(msg.Replace("bTemp\":0", "bTemp\":1"));
-                    }*/
-
                     tbDrop.Text = string.Empty;
 
                     /*foreach (Item drop in drops)
@@ -279,6 +288,7 @@ namespace ExamplePacketPlugin
                         this.inBank = true;
                         message.Send = false;
                     }
+                    isGetDropLoading = false;
                     needToGrab = true;
                 }
                 else if (msg.Contains("cmd\":\"equipItem") || msg.Contains("cmd\":\"unequipItem"))
@@ -596,6 +606,7 @@ namespace ExamplePacketPlugin
 
                 tvDropMain.Nodes.Clear();
                 tvDropPool.Nodes.Clear();
+
                 int index = 0;
                 int indexPool = 0;
 
@@ -618,6 +629,7 @@ namespace ExamplePacketPlugin
                             bUpgNode,
                             iQtyNode,
                         });
+
                         mainNode.Name = $"{drop.ID}";
 
                         if (!drop.IsRejected)
@@ -672,27 +684,46 @@ namespace ExamplePacketPlugin
                     }
                 }
 
-                /* Making the last selected node be selected 
-                when treeview gets refreshed. */
-                if (tempSelectedNode != null)
-                {
-                    string currTnName = tempSelectedNode.Name;
-
-                    if (tvDropMain.Nodes != null && tvDropMain.Nodes.ContainsKey(currTnName))
-                    {
-                        tvDropMain.SelectedNode = tvDropMain.Nodes[currTnName];
-                    }
-                    else if(tvDropPool.Nodes != null && tvDropPool.Nodes.ContainsKey(currTnName))
-                    {
-                        tvDropPool.SelectedNode = tvDropPool.Nodes[currTnName];
-                    }
-                }
-
                 SetTreeViewScrollPos(tvDropMain, ScrollPosTree);
                 SetTreeViewScrollPos(tvDropPool, ScrollPosPool);
             }
             catch (Exception ex) { errorMsg(ex); }
 
+        }
+
+        // set selected node after grabTreeDrops
+
+        private void setSelectedNode()
+        {
+            if (tempSelectedNode != null)
+            {
+                string currTnName = tempSelectedNode.Name;
+
+                if (tnCount(tvMode.Main) > 0 && lastTvFocus == tvMode.Main)
+                {
+                    if (tnCount(tvMode.Pool) > 0 && lastPoolSelectedNode != null)
+                        tvDropPool.SelectedNode = (tnCount(tvMode.Pool) - 1) >= lastPoolSelectedNode.Index ?
+                        tvDropPool.Nodes[lastPoolSelectedNode.Index] : tvDropPool.Nodes[lastPoolSelectedNode.Index - 1];
+
+                    tvDropMain.SelectedNode = (tnCount(tvMode.Main) - 1) >= lastMainSelectedNode.Index ?
+                        tvDropMain.Nodes[lastMainSelectedNode.Index] : tvDropMain.Nodes[lastMainSelectedNode.Index - 1];
+
+                    if (Form.ActiveForm == this)
+                        tvDropMain.Focus();
+                }
+                else if (tnCount(tvMode.Pool) > 0 && lastTvFocus == tvMode.Pool)
+                {
+                    if (tnCount(tvMode.Main) > 0 && lastMainSelectedNode != null)
+                        tvDropMain.SelectedNode = (tnCount(tvMode.Main) - 1) >= lastMainSelectedNode.Index ?
+                        tvDropMain.Nodes[lastMainSelectedNode.Index] : tvDropMain.Nodes[lastMainSelectedNode.Index - 1];
+
+                    tvDropPool.SelectedNode = (tnCount(tvMode.Pool) - 1) >= lastPoolSelectedNode.Index ?
+                        tvDropPool.Nodes[lastPoolSelectedNode.Index] : tvDropPool.Nodes[lastPoolSelectedNode.Index - 1];
+
+                    if (Form.ActiveForm == this)
+                        tvDropPool.Focus();
+                }
+            }
         }
 
         /* TreeView mouse-click handler
@@ -710,6 +741,8 @@ namespace ExamplePacketPlugin
                         tempSelectedNode = e.Node;
                         tvDropMain.SelectedNode = e.Node;
                         tvDropMain.SelectedNode.ContextMenuStrip.Show(Cursor.Position);
+                        lastTvFocus = tvMode.Main;
+                        lbTest.Text = $"tvDropMain: {e.Node.Index}";
                         //tbDrop.Text += "**Main RClicked" + "\r\n";
                     } 
                     else if (tvDropPool.Nodes.Contains(e.Node))
@@ -717,6 +750,8 @@ namespace ExamplePacketPlugin
                         tempSelectedNode = e.Node;
                         tvDropPool.SelectedNode = e.Node;
                         tvDropPool.SelectedNode.ContextMenuStrip.Show(Cursor.Position);
+                        lastTvFocus = tvMode.Pool;
+                        lbTest.Text = $"tvDropPool: {e.Node.Index}";
                         //tbDrop.Text += "**Pool RClicked" + "\r\n";
                     }
                 } 
@@ -726,14 +761,79 @@ namespace ExamplePacketPlugin
                     {
                         tempSelectedNode = e.Node;
                         tvDropMain.SelectedNode = e.Node;
+                        lastTvFocus = tvMode.Main;
+                        lbTest.Text = $"tvDropMain: {e.Node.Index}";
                         //tbDrop.Text += "**Main LClicked" + "\r\n";
                     }
                     else if (tvDropPool.Nodes.Contains(e.Node))
                     {
                         tempSelectedNode = e.Node;
                         tvDropPool.SelectedNode = e.Node;
+                        lastTvFocus = tvMode.Pool;
+                        lbTest.Text = $"tvDropPool: {e.Node.Index}";
                         //tbDrop.Text += "**Pool LClicked" + "\r\n";
                     }
+                }
+            }
+            catch (Exception ex) { errorMsg(ex); }
+        }
+
+        /* TreeView after-select handler
+         * handle tree node after select
+         * keep tracking of the selected node
+         */
+        private void tv_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            try
+            {
+                if (e.Node != null)
+                {
+
+                    if (tvDropMain.Nodes.Contains(e.Node))
+                    {
+                        tempSelectedNode = e.Node;
+                        lastMainSelectedNode = e.Node;
+                        lastTvFocus = tvMode.Main;
+                        lbTest.Text = $"tvDropMain: {e.Node.Index}";
+                    }
+                    else if (tvDropPool.Nodes.Contains(e.Node))
+                    {
+                        tempSelectedNode = e.Node;
+                        lastPoolSelectedNode = e.Node;
+                        lastTvFocus = tvMode.Pool;
+                        lbTest.Text = $"tvDropPool: {e.Node.Index}";
+                    }
+                }
+            }
+            catch (Exception ex) { errorMsg(ex); }
+        }
+
+        /* TreeView got focus handler
+         * keep tracking of the selected node
+         */
+        private void tv_GotFocus(object sender, EventArgs e)
+        {
+            try
+            {
+                if(tvDropMain.Focused && tnCount(tvMode.Main) > 0 && tvDropMain.SelectedNode != null)
+                {
+                    tempSelectedNode = tvDropMain.SelectedNode;
+                    lastMainSelectedNode = tvDropMain.SelectedNode;
+                    lastTvFocus = tvMode.Main;
+                    lbTest.Text = $"tvDropMain: {tvDropMain.SelectedNode.Index}";
+
+                    tvDropMain.BackColor = Color.White;
+                    tvDropPool.BackColor = Color.WhiteSmoke;
+                }
+                else if(tvDropPool.Focused && tnCount(tvMode.Pool) > 0 && tvDropPool.SelectedNode != null)
+                {
+                    tempSelectedNode = tvDropPool.SelectedNode;
+                    lastPoolSelectedNode = tvDropPool.SelectedNode;
+                    lastTvFocus = tvMode.Pool;
+                    lbTest.Text = $"tvDropPool: {tvDropPool.SelectedNode.Index}";
+
+                    tvDropPool.BackColor = Color.White;
+                    tvDropMain.BackColor = Color.WhiteSmoke;
                 }
             }
             catch (Exception ex) { errorMsg(ex); }
@@ -759,12 +859,19 @@ namespace ExamplePacketPlugin
                 "(or) already max-stacked in your inv!", "Oops");
         }
 
+        // action: keep, reject-restore, open on wiki, 
+
         // Control StripMenuItem for main treeview
         private void keepToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if(isGetDropLoading)
+                return;
+            else isGetDropLoading = true;
+
             bool isItemInInv = Player.Inventory.ContainsItem(tempSelectedNode.Nodes[1].Text, "1");
             if (isInvFull() && !isItemInInv)
             {
+                isGetDropLoading = false;
                 invFullMsgBox();
                 return;
             }
@@ -803,9 +910,10 @@ namespace ExamplePacketPlugin
                     if (drop.ID == tempID)
                     {
                         drop.IsRejected = true;
-                        needToGrab = true;
                         tvDropMain.SelectedNode = null;
-                        //tbDrop.Text += "to Pool" + "\r\n";
+
+                        grabTreeDrops();
+                        setSelectedNode();
                         break;
                     }
                 }
@@ -816,9 +924,14 @@ namespace ExamplePacketPlugin
         // Control StripMenuItem for pool treeview
         private void keepToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            if (isGetDropLoading)
+                return;
+            else isGetDropLoading = true;
+
             bool isItemInInv = Player.Inventory.ContainsItem(tempSelectedNode.Nodes[1].Text, "1");
             if (isInvFull() && !isItemInInv)
             {
+                isGetDropLoading = false;
                 invFullMsgBox();
                 return;
             }
@@ -857,9 +970,10 @@ namespace ExamplePacketPlugin
                     if (drop.ID == tempID)
                     {
                         drop.IsRejected = false;
-                        needToGrab = true;
                         tvDropPool.SelectedNode = null;
-                        //tbDrop.Text += "to Main" + "\r\n";
+
+                        grabTreeDrops();
+                        setSelectedNode();
                         break;
                     }
                 }
@@ -874,17 +988,15 @@ namespace ExamplePacketPlugin
             tbDrop.ScrollToCaret();
         }
 
-        /* tnCount: count treenode of each treeview
-         * tnCount(0): count treenode of main treeview
-         * tnCount(1): count treenode of pool treeview
-         */
-        private int tnCount(int i)
+        /* tnCount: count treenode of each treeview (Main/Pool) */
+
+        private int tnCount(tvMode i)
         {
-            if(i == 0)
+            if(i == tvMode.Main)
             {
                 return tvDropMain.Nodes.Count;
             }
-            else if(i == 1)
+            else if(i == tvMode.Pool)
             {
                 return tvDropPool.Nodes.Count;
             }
@@ -913,7 +1025,9 @@ namespace ExamplePacketPlugin
         }
 
         /* Hiding Pool/Logs and making the form shrink */
+
         int temptbDropWidth;
+
         private void cbHideUI_CheckedChanged(object sender, EventArgs e)
         {
             if (cbHideUI.Checked)
@@ -934,9 +1048,11 @@ namespace ExamplePacketPlugin
                 //cbHidePlayer.Visible = false;
                 //cbLagKiller.Visible = false;
                 linklbReportBug.Visible = false;
+                linklbHotkeys.Visible = false;
                 cbWalkSpeed.Visible = false;
                 numWalkSpeed.Visible = false;
                 cbSkipCutscene.Visible = false;
+                tvDropMain.Focus();
             }
             else
             {
@@ -955,6 +1071,7 @@ namespace ExamplePacketPlugin
                 //cbHidePlayer.Visible = true;
                 //cbLagKiller.Visible = true;
                 linklbReportBug.Visible = true;
+                linklbHotkeys.Visible = true;
                 cbWalkSpeed.Visible = true;
                 numWalkSpeed.Visible = true;
                 cbSkipCutscene.Visible = true;
@@ -975,7 +1092,7 @@ namespace ExamplePacketPlugin
             }
             catch
             {
-                MessageBox.Show(this, "Unable to open link that was clicked.");
+                MessageBox.Show(this, "Unable to open the link.");
             }
         }
 
@@ -987,7 +1104,8 @@ namespace ExamplePacketPlugin
             {
                 if(itemID == drop.ID)
                 {
-                    Proxy.Instance.SendToClient("{\"t\":\"xt\",\"b\":{\"r\":-1,\"o\":{\"uid\":" + this.UID + ",\"ItemID\":" + drop.ID + "," +
+                    if(_isEquipable(drop.StrES))
+                        Proxy.Instance.SendToClient("{\"t\":\"xt\",\"b\":{\"r\":-1,\"o\":{\"uid\":" + this.UID + ",\"ItemID\":" + drop.ID + "," +
                         "\"strES\":\"" + drop.StrES + "\",\"cmd\":\"equipItem\",\"sFile\":\"" + drop.SFile + "\"," +
                         "\"sLink\":\"" + drop.SLink + "\"}}}");
                     return;
@@ -1067,6 +1185,7 @@ namespace ExamplePacketPlugin
         private void Main_Load(object sender, EventArgs e)
         {
             stopStateUI();
+            tbDrop.Text = "Enable plugin before log in (the plugin can't be activated once you're logged in)";
         }
 
         /* All the code below is only to maintain 
@@ -1190,6 +1309,131 @@ namespace ExamplePacketPlugin
                 Grimoire.Tools.Flash.Call("SetSkipCutscenes");
                 await Task.Delay(1000);
             }
+        }
+
+        /* Hotkey */
+
+        private void hotkey(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Q)
+            {
+                // navigate tree view: Q
+                e.SuppressKeyPress = true;
+
+                if (tvDropMain.Focused && tnCount(tvMode.Pool) > 0)
+                {
+                    cbHideUI.Checked = false;
+                    lastTvFocus = tvMode.Pool;
+                    tvDropPool.Focus();
+                    tempSelectedNode = tvDropPool.SelectedNode;
+                }
+                else if(tvDropPool.Focused && tnCount(tvMode.Main) > 0)
+                {
+                    lastTvFocus = tvMode.Main;
+                    tvDropMain.Focus();
+                    tempSelectedNode = tvDropMain.SelectedNode;
+                }
+                else
+                {
+                    if (tnCount(tvMode.Main) > 0)
+                    {
+                        lastTvFocus = tvMode.Main;
+                        tvDropMain.Focus();
+                        if(tvDropMain.SelectedNode == null)
+                        {
+                            tvDropMain.SelectedNode = tvDropMain.Nodes[0];
+                            tempSelectedNode = tvDropMain.SelectedNode;
+                        }
+                        else tempSelectedNode = tvDropMain.SelectedNode;
+                    }
+                    else if (tnCount(tvMode.Pool) > 0)
+                    {
+                        cbHideUI.Checked = false;
+                        lastTvFocus = tvMode.Pool;
+                        tvDropPool.Focus();
+                        if (tvDropPool.SelectedNode == null)
+                        {
+                            tvDropPool.SelectedNode = tvDropPool.Nodes[0];
+                            tempSelectedNode = tvDropPool.SelectedNode;
+                        }
+                        else tempSelectedNode = tvDropPool.SelectedNode;
+                    }
+                    else
+                    {
+                        e.SuppressKeyPress = false;
+                    }
+                }
+            }
+            else if(e.KeyCode == Keys.S)
+            {
+                // keep: S
+                if (tvDropMain.Focused && tvDropMain.SelectedNode != null)
+                {
+                    e.SuppressKeyPress = true;
+                    keepToolStripMenuItem_Click(this, e);
+                }
+                else if (tvDropPool.Focused && tvDropPool.SelectedNode != null)
+                {
+                    e.SuppressKeyPress = true;
+                    keepToolStripMenuItem1_Click(this, e);
+                }
+            }
+            else if (e.KeyCode == Keys.D)
+            {
+                // reject/restore: D
+                if (tvDropMain.Focused && tvDropMain.SelectedNode != null)
+                {
+                    e.SuppressKeyPress = true;
+                    rejectToolStripMenuItem_Click(this, e);
+                }
+                else if (tvDropPool.Focused && tvDropPool.SelectedNode != null)
+                {
+                    e.SuppressKeyPress = true;
+                    restoreToolStripMenuItem_Click(this, e);
+                }
+            }
+            else if(e.KeyCode == Keys.Enter && e.Control && tempSelectedNode != null)
+            {
+                // open wiki: Ctrl + Enter
+                e.SuppressKeyPress = true;
+                openOnWikiToolStripMenuItem_Click(this, e);
+            }
+            else if (e.KeyCode == Keys.V)
+            {
+                // toggle on/off hide UI: V
+                e.SuppressKeyPress = true;
+                cbHideUI.Checked = cbHideUI.Checked ? false : true;
+            }
+            else if (e.KeyCode == Keys.E)
+            {
+                // equip swf: E
+                e.SuppressKeyPress = true;
+                equipSWFToolStripMenuItem_Click(this, e);
+            }
+            else if (e.KeyCode == Keys.R)
+            {
+                // reset swf: R
+                e.SuppressKeyPress = true;
+                btnResetSWF_Click(this, e);
+            }
+            else if (e.KeyCode == Keys.A)
+            {
+                // toggle auto attack on/off: A
+                e.SuppressKeyPress = true;
+                cbAutoAtt.Checked = cbAutoAtt.Checked ? false : true;
+            }
+        }
+
+        private void linklbHotkeys_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            hotkeysHelpForm.StartPosition = FormStartPosition.CenterParent;
+            if (!hotkeysHelpForm.Visible)
+            {
+                hotkeysHelpForm.TopMost = true;
+                hotkeysHelpForm.Show(this);
+                hotkeysHelpForm.Focus();
+            }
+            else hotkeysHelpForm.Hide();
         }
     }
 }
